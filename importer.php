@@ -45,7 +45,9 @@ class IssuesImporter
         ];
 
         curl_setopt_array($ch, $option);
-        curl_exec($ch);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 }
 
