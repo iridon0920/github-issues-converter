@@ -64,9 +64,17 @@ if ($file_name) {
         if (!is_null($arr)) {
             $labels = [];
             for ($i = 3; $i <= count($arr) - 1; $i++) {
-                $labels[] = $arr[$i];
+                if ($arr[$i]) {
+                    $labels[] = $arr[$i];
+                }
             }
-            $issues_importer->import($arr[0], $arr[1], $arr[2], $labels);
+            $result = $issues_importer->import($arr[0], $arr[1], $arr[2], $labels);
+            if ($result) {
+                echo $arr[0] . " is import OK\n";
+            } else {
+                echo $arr[0] . " is import NG\n";
+                exit;
+            }
         }
     }
 }
