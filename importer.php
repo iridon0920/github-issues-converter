@@ -39,7 +39,9 @@ class IssuesImporter
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_TIMEOUT => 3
+            CURLOPT_TIMEOUT => 3,
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true
         ];
 
         curl_setopt_array($ch, $option);
