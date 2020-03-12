@@ -2,8 +2,6 @@
 
 namespace App;
 
-use stdClass;
-
 class Connection
 {
     private $Con;

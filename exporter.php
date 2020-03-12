@@ -31,12 +31,9 @@ while (1) {
     $i++;
 }
 
-$csv = fopen("export.csv", "w");
-if ($csv) {
-    fputcsv($csv, ["id", "タイトル", "内容", "状態", "作成日", "クローズ日"]);
-    foreach ($result as $val) {
-        fputcsv($csv, [$val->number, $val->title, $val->body, $val->state, $val->created_at, $val->closed_at]);
-    }
+$export_csv = new ExpoertCsv();
+$export_csv->open("export.csv");
+if ($export_csv->writeIssues($result)) {
     echo "CSVファイルの書き出しに成功しました。\n";
 } else {
     echo "CSVファイルの書き出しに失敗しました。\n";
