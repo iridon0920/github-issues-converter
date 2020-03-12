@@ -21,4 +21,14 @@ while (1) {
     }
     $i++;
 }
-echo count($result);
+
+$csv = fopen("export.csv", "w");
+if ($csv) {
+    fputcsv($csv, ["id", "タイトル", "内容", "作成日", "クローズ日"]);
+    foreach ($result as $val) {
+        fputcsv($csv, [$val->number, $val->title, $val->body, $val->created_at, $val->closed_at]);
+    }
+    echo "CSVファイルの書き出しに成功しました。\n";
+} else {
+    echo "CSVファイルの書き出しに失敗しました。\n";
+}
