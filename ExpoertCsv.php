@@ -32,7 +32,7 @@ class ExpoertCsv
 
     private function writeHeader() : bool
     {
-        return fputcsv($this->Csv, ["id", "タイトル", "内容", "状態", "作成日", "クローズ日"]);
+        return fputcsv($this->Csv, ["id", "タイトル", "内容", "状態", "担当者", "ラベル", "作成日", "クローズ日"]);
     }
 
     private function writeBody(stdClass $issue) : bool
@@ -53,8 +53,28 @@ class ExpoertCsv
             $issue->title,
             $issue->body,
             $issue->state,
+            $this->getAssigneeNames($issue->assignees),
+            $this->getLabelNames($issue->labels),
             $issue->created_at,
             $issue->closed_at
         ];
+    }
+
+    private function getAssigneeNames(array $assignees) : string
+    {
+        $names = '';
+        foreach ($assignees as $assignee) {
+            $names .= $assignee->login . "\n";
+        }
+        return $names;
+    }
+
+    private function getLabelNames(array $labels) : string
+    {
+        $names = '';
+        foreach ($labels as $label) {
+            $names .= $label->name . "\n";
+        }
+        return $names;
     }
 }
